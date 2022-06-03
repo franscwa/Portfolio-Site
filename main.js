@@ -32,12 +32,10 @@
 
 				sun = new THREE.Vector3();
 //TEST
-let light = new THREE.PointLight(0xffffff);
-    light.position.set(30,60,40);
-
-    light.castShadow = true;
-    scene.add(light);
-    
+/* video = document.getElementById('video');
+video.play();
+texture = new THREE.VideoTexture(video);
+ */
 				// Water
 
 				const waterGeometry = new THREE.PlaneGeometry( 10000, 10000 );
@@ -109,15 +107,35 @@ let light = new THREE.PointLight(0xffffff);
 				controls.maxDistance = 200.0;
 				controls.update();
 
-        const geometry = new THREE.BoxGeometry( 30, 30, 30 );
+     			const geometry = new THREE.BoxGeometry( 30, 30, 30);
 				const material = new THREE.MeshStandardMaterial( { roughness: 0 } );
 
 				mesh = new THREE.Mesh( geometry, material );
 				scene.add( mesh );
+				mesh.position.y=20;
+				//rotate mesh
+			
 
-				window.addEventListener( 'resize', onWindowResize );
+				const torusgeometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 );
+const torusmaterial = new THREE.MeshStandardMaterial( { roughness: 0 } );
+const torusKnot = new THREE.Mesh( torusgeometry, torusmaterial );
+scene.add( torusKnot );
+				torusKnot.position.x=-40;
+				torusKnot.position.y=20;
 
+		const cubeGeometry = new THREE.BoxGeometry( 30, 30, 30 );
+		const cubeMaterial = new THREE.MeshStandardMaterial( { roughness: 0 } );
+
+		const cubemesh = new THREE.Mesh( cubeGeometry, cubeMaterial );
+		
+
+				scene.add( cubemesh ); 
+
+				cubemesh.position.x = 30;
+				cubemesh.position.y = 30;
+	
 			}
+			window.addEventListener( 'resize', onWindowResize );
 
 			function onWindowResize() {
 
