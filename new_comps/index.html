@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id ="author"> 
-        <p>Made in China</p>
+        <p>Modified</p>
     </div>
 <video id-="" loop="" crossorigin="anonymous" style="display:none">
 <source src="https://threejs.org/examples/textures/sintel.mp4" type="video/mp4; codecs=&quot;avc1,42E01E,mp4.40.2&quot;" >
@@ -50,9 +50,65 @@
     light.castShadow = true;
     scene.add(light);
     
-    video = document.getElementById('video');
-    video.play();
-    texture = new THREE.VideoTexture(video);
+    const waterGeometry = new THREE.PlaneGeometry( 10000, 10000 );
+
+water = new Water(
+    waterGeometry,
+    {
+        textureWidth: 512,
+        textureHeight: 512,
+        waterNormals: new THREE.TextureLoader().load( 'assets/waternormals.jpg', function ( texture ) {
+
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+
+        } ),
+        sunDirection: new THREE.Vector3(),
+        sunColor: 0xffffff,
+        waterColor: 0x001e0f,
+        distortionScale: 3.7,
+        fog: scene.fog !== undefined
+    }
+);
+
+water.rotation.x = - Math.PI / 2;
+
+scene.add( water );
+
+// Skybox
+
+const sky = new Sky();
+sky.scale.setScalar( 10000 );
+scene.add( sky );
+
+const skyUniforms = sky.material.uniforms;
+
+skyUniforms[ 'turbidity' ].value = 10;
+skyUniforms[ 'rayleigh' ].value = 2;
+skyUniforms[ 'mieCoefficient' ].value = 0.005;
+skyUniforms[ 'mieDirectionalG' ].value = 0.8;
+
+const parameters = {
+    elevation: 2,
+    azimuth: 180
+};
+
+const pmremGenerator = new THREE.PMREMGenerator( renderer );
+
+function updateSun() {
+
+    const phi = THREE.MathUtils.degToRad( 90 - parameters.elevation );
+    const theta = THREE.MathUtils.degToRad( parameters.azimuth );
+
+    sun.setFromSphericalCoords( 1, phi, theta );
+
+    sky.material.uniforms[ 'sunPosition' ].value.copy( sun );
+    water.material.uniforms[ 'sunDirection' ].value.copy( sun ).normalize();
+
+    scene.environment = pmremGenerator.fromScene( sky ).texture;
+
+}
+
+updateSun();
 
     plane.mesh = new THREE.Mesh(
         new THREE.BoxGeometry(300,300,1),
@@ -95,12 +151,12 @@
     var cubeMaterial = new THREE.MeshLamberMaterial({
         color: 0xffffff
     });
+
     var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
     
     cube.position.x=35;
     cube.position.y=15;
     cube.position.z=-5;
-
     cube.castShadow = true;
     scene.add(cube);
 
@@ -111,25 +167,29 @@
     controls.update();
 
     function handleClick(e){
-
     }
 
     function handleReset(e){
-
     }
+
     windows.addEventListener('resize', onWindowResize, false);
+
     function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     }
+
     render();
+
     };
+
     function render(){
         controls.update();
         renderer.render(scene, camera);
         requestAnimationFrame(render);
     }
+
 </script>
 </body>
 </html>

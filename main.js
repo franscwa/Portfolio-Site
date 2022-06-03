@@ -8,6 +8,7 @@
 		
 			let camera, scene, renderer;
 			let controls, water, sun, mesh;
+			let video,texture;
 
 			init();
 
@@ -26,7 +27,7 @@
 				scene = new THREE.Scene();
 
 				camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 20000 );
-				camera.position.set( 60, 60, 1000 );
+				camera.position.set( 5, 60, 1000 );
 
 				//
 
@@ -98,8 +99,33 @@ texture = new THREE.VideoTexture(video);
 
 				updateSun();
 
-		
 
+				const video = document.getElementById('video');
+				
+				texture = new THREE.VideoTexture(video);
+
+				var movieMaterial = new THREE.MeshBasicMaterial( { map: texture, side: THREE.FrontSide, toneMapped:false, } );
+				var movieGeometry = new THREE.PlaneGeometry( 100, 100 );
+				var movieScreen = new THREE.Mesh( movieGeometry, movieMaterial );
+
+				movieScreen.position.set( 0, 70, -100 );
+				movieScreen.scale.set(2,2,2);
+				scene.add( movieScreen );
+
+				var movieScreen2 = new THREE.Mesh( movieGeometry, movieMaterial );
+				movieScreen2.position.set( -300, 70, -100 );
+				movieScreen2.scale.set(2,2,2);
+				scene.add( movieScreen2 );
+			
+				var movieScreen3 = new THREE.Mesh( movieGeometry, movieMaterial );
+				movieScreen3.position.set( 300, 70, -100 );
+				movieScreen3.scale.set(2,2,2);
+				scene.add( movieScreen3 );
+			
+
+
+		
+				 
 				controls = new OrbitControls( camera, renderer.domElement );
 				controls.maxPolarAngle = Math.PI * 0.495;
 				controls.target.set( 0, 10, 0 );
@@ -107,14 +133,14 @@ texture = new THREE.VideoTexture(video);
 				controls.maxDistance = 200.0;
 				controls.update();
 
-     			const geometry = new THREE.BoxGeometry( 30, 30, 30);
+     	/* 		const geometry = new THREE.BoxGeometry( 30, 30, 100);
 				const material = new THREE.MeshStandardMaterial( { roughness: 0 } );
 
 				mesh = new THREE.Mesh( geometry, material );
 				scene.add( mesh );
 				mesh.position.y=20;
 				//rotate mesh
-			
+			 */
 
 				const torusgeometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 );
 const torusmaterial = new THREE.MeshStandardMaterial( { roughness: 0, wireframe:true } );
@@ -124,16 +150,16 @@ scene.add( torusKnot );
 				torusKnot.position.y=20;
 				
 
-		const cubeGeometry = new THREE.BoxGeometry( 30, 30, 30 );
+	/* 	const cubeGeometry = new THREE.BoxGeometry( 30, 30, 100 );
 		const cubeMaterial = new THREE.MeshStandardMaterial( { roughness: 0 } );
 
 		const cubemesh = new THREE.Mesh( cubeGeometry, cubeMaterial );
-		
+
 
 				scene.add( cubemesh ); 
 
 				cubemesh.position.x = 30;
-				cubemesh.position.y = 30;
+				cubemesh.position.y = 30; */
 	
 			}
 			window.addEventListener( 'resize', onWindowResize );
@@ -150,7 +176,7 @@ scene.add( torusKnot );
 			function animate() {
 
 				requestAnimationFrame( animate );
-				
+				texture.needsUpdate = true;
 				render();
 			
 			}
