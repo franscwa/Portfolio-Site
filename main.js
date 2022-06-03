@@ -123,18 +123,18 @@ texture = new THREE.VideoTexture(video);
 				let movieGeometry = new THREE.PlaneGeometry( 192/2, 108/2 );
 				
 				let movieScreen = new THREE.Mesh( movieGeometry, movieMaterial );
-				movieScreen.position.set( 175, 70, -100 );
+				movieScreen.position.set( 180, 70, -150 );
 				movieScreen.scale.set(2,2,2);
 				scene.add( movieScreen );
 
 				let movieScreen2 = new THREE.Mesh( movieGeometry, movieMaterial2 );
-				movieScreen2.position.set( -75, 70, -100 );
+				movieScreen2.position.set( 0, 70, -100 );
 				movieScreen2.scale.set(2,2,2);
 				scene.add( movieScreen2 );
 			
 				camera.position.z = 150;
 				let movieScreen3 = new THREE.Mesh( movieGeometry, movieMaterial3 );
-				movieScreen3.position.set( -325, 70, -100 );
+				movieScreen3.position.set( -180, 70, -150 );
 				movieScreen3.scale.set(2,2,2);
 				scene.add( movieScreen3 ); 
 			
@@ -171,6 +171,7 @@ texture = new THREE.VideoTexture(video);
 				const material = new THREE.MeshStandardMaterial( { roughness: 0 } );
 
 				mesh = new THREE.Mesh( geometry, material );
+
 				scene.add( mesh );
 				mesh.position.y=20;
 				//rotate mesh
