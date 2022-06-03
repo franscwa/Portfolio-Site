@@ -7,7 +7,7 @@
 
 		
 			let camera, scene, renderer;
-			let controls, water, sun,mesh;
+			let controls, water, sun, mesh;
 
 			init();
 
@@ -26,7 +26,7 @@
 				scene = new THREE.Scene();
 
 				camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 20000 );
-				camera.position.set( 30, 30, 100 );
+				camera.position.set( 60, 60, 1000 );
 
 				//
 
