@@ -8,7 +8,7 @@
 		
 			let camera, scene, renderer;
 			let controls, water, sun, mesh;
-			let video,texture;
+			let video,texture,video2,texture2;
 
 			init();
 
@@ -100,27 +100,35 @@ texture = new THREE.VideoTexture(video);
 				updateSun();
 
 
-				const video = document.getElementById('video');
+				 video = document.getElementById('video');
+				 video2 = document.getElementById('video2');
+
+				video.play();
+				video2.play();
 				
 				texture = new THREE.VideoTexture(video);
 
-				var movieMaterial = new THREE.MeshBasicMaterial( { map: texture, side: THREE.FrontSide, toneMapped:false, } );
-				var movieGeometry = new THREE.PlaneGeometry( 100, 100 );
-				var movieScreen = new THREE.Mesh( movieGeometry, movieMaterial );
+				texture2 = new THREE.VideoTexture(video2);
+
+				let movieMaterial = new THREE.MeshBasicMaterial( { map: texture, side: THREE.FrontSide, toneMapped:false } );
+				let movieMaterial2 = new THREE.MeshBasicMaterial( { map: texture2, side: THREE.FrontSide, toneMapped:false } );
+
+				let movieGeometry = new THREE.PlaneGeometry( 192/2, 108/2 );
+				let movieScreen = new THREE.Mesh( movieGeometry, movieMaterial );
 
 				movieScreen.position.set( 0, 70, -100 );
 				movieScreen.scale.set(2,2,2);
 				scene.add( movieScreen );
 
-				var movieScreen2 = new THREE.Mesh( movieGeometry, movieMaterial );
+				let movieScreen2 = new THREE.Mesh( movieGeometry, movieMaterial2 );
 				movieScreen2.position.set( -300, 70, -100 );
 				movieScreen2.scale.set(2,2,2);
 				scene.add( movieScreen2 );
 			
-				var movieScreen3 = new THREE.Mesh( movieGeometry, movieMaterial );
+/* 				var movieScreen3 = new THREE.Mesh( movieGeometry, movieMaterial );
 				movieScreen3.position.set( 300, 70, -100 );
 				movieScreen3.scale.set(2,2,2);
-				scene.add( movieScreen3 );
+				scene.add( movieScreen3 ); */
 			
 
 
@@ -177,10 +185,12 @@ scene.add( torusKnot );
 
 				requestAnimationFrame( animate );
 				texture.needsUpdate = true;
+				texture2.needsUpdate = true;
 				render();
 			
 			}
 
+			
 			function render() {
 		
 			
@@ -189,3 +199,15 @@ scene.add( torusKnot );
 				renderer.render( scene, camera );
 
 			}
+
+/* 			document.onkeydown = function(e) {
+				if (e.key === 'p'){
+					video.play();
+				}else if (e.key === 'space'){
+					video.pause();
+				}else if(e.key === 's'){
+					video.pause();
+					video.currentTime = 0;
+				} else if(e.key === 'r'){
+					video.currentTime = 0;
+				}}; */
