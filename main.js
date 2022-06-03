@@ -138,16 +138,16 @@ texture = new THREE.VideoTexture(video);
 				movieScreen3.scale.set(2,2,2);
 				scene.add( movieScreen3 ); 
 			
-				const sphereGeometry = new THREE.SphereGeometry( 100, 32, 32 );
+				let sphereGeometry = new THREE.SphereGeometry( 100, 32, 32 );
 				const sphereMaterial = new THREE.MeshBasicMaterial( { roughness:0, wireframe:true } );
-
-				 sphereMesh = new THREE.Mesh( sphereGeometry, sphereMaterial );
+				const sphereMaterial2 = new THREE.MeshNormalMaterial({ wireframe:true });
+				 sphereMesh = new THREE.Mesh( sphereGeometry, sphereMaterial2 );
 				scene.add(sphereMesh);
 
 				 sphere2Mesh = new THREE.Mesh( sphereGeometry, sphereMaterial );
 				scene.add(sphere2Mesh );
 
-				 sphere3Mesh = new THREE.Mesh( sphereGeometry, sphereMaterial );
+				 sphere3Mesh = new THREE.Mesh( sphereGeometry, sphereMaterial2 );
 				scene.add(sphere3Mesh );
 
 				sphere3Mesh.position.set(-50,25,0);
@@ -179,7 +179,7 @@ texture = new THREE.VideoTexture(video);
 				const torusgeometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 );
 			const torusmaterial = new THREE.MeshNormalMaterial( { wireframe:true } );
  			torusKnot = new THREE.Mesh( torusgeometry, torusmaterial );
-scene.add( torusKnot );
+			scene.add( torusKnot );
 				torusKnot.position.x=0;
 				torusKnot.position.y=25;
 				torusKnot.position.z=0;
@@ -218,7 +218,8 @@ scene.add( torusKnot );
 				texture3.needsUpdate = true;
 				controls.update();
 				//rotate animation for sphereMesh
-				
+				sphereMesh.rotation.z -= 0.01;
+				sphere3Mesh.rotation.z += 0.01;
 				sphere2Mesh.rotation.y += 0.01;
 
 				torusKnot.rotation.x += 0.01;
