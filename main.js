@@ -117,11 +117,12 @@ texture = new THREE.VideoTexture(video);
 			
 
 				const torusgeometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 );
-const torusmaterial = new THREE.MeshStandardMaterial( { roughness: 0 } );
+const torusmaterial = new THREE.MeshStandardMaterial( { roughness: 0, wireframe:true } );
 const torusKnot = new THREE.Mesh( torusgeometry, torusmaterial );
 scene.add( torusKnot );
 				torusKnot.position.x=-40;
 				torusKnot.position.y=20;
+				
 
 		const cubeGeometry = new THREE.BoxGeometry( 30, 30, 30 );
 		const cubeMaterial = new THREE.MeshStandardMaterial( { roughness: 0 } );
@@ -149,6 +150,7 @@ scene.add( torusKnot );
 			function animate() {
 
 				requestAnimationFrame( animate );
+				
 				render();
 			
 			}
