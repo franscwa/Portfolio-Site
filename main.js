@@ -7,8 +7,8 @@
 
 		
 			let camera, scene, renderer;
-			let controls, water, sun, mesh;
-			let video,texture,video2,texture2;
+			let controls, water, sun,mesh, sphere2Mesh, sphereMesh, sphere3Mesh, torusKnot;
+			let video,texture,video2,texture2,texture3,video3;
 
 			init();
 
@@ -27,7 +27,8 @@
 				scene = new THREE.Scene();
 
 				camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 20000 );
-				camera.position.set( 5, 60, 1000 );
+				
+
 
 				//
 
@@ -102,45 +103,70 @@ texture = new THREE.VideoTexture(video);
 
 				 video = document.getElementById('video');
 				 video2 = document.getElementById('video2');
+				 video3 = document.getElementById('video3');
 
 				video.play();
 				video2.play();
+				video3.play();
 				
 				texture = new THREE.VideoTexture(video);
 
 				texture2 = new THREE.VideoTexture(video2);
 
+				texture3 = new THREE.VideoTexture(video3);
+
 				let movieMaterial = new THREE.MeshBasicMaterial( { map: texture, side: THREE.FrontSide, toneMapped:false } );
 				let movieMaterial2 = new THREE.MeshBasicMaterial( { map: texture2, side: THREE.FrontSide, toneMapped:false } );
-
+				let movieMaterial3 = new THREE.MeshBasicMaterial( { map: texture3, side: THREE.FrontSide, toneMapped:false } );
+				
+				
 				let movieGeometry = new THREE.PlaneGeometry( 192/2, 108/2 );
+				
 				let movieScreen = new THREE.Mesh( movieGeometry, movieMaterial );
-
-				movieScreen.position.set( 0, 70, -100 );
+				movieScreen.position.set( 175, 70, -100 );
 				movieScreen.scale.set(2,2,2);
 				scene.add( movieScreen );
 
 				let movieScreen2 = new THREE.Mesh( movieGeometry, movieMaterial2 );
-				movieScreen2.position.set( -300, 70, -100 );
+				movieScreen2.position.set( -75, 70, -100 );
 				movieScreen2.scale.set(2,2,2);
 				scene.add( movieScreen2 );
 			
-/* 				var movieScreen3 = new THREE.Mesh( movieGeometry, movieMaterial );
-				movieScreen3.position.set( 300, 70, -100 );
+				camera.position.z = 150;
+				let movieScreen3 = new THREE.Mesh( movieGeometry, movieMaterial3 );
+				movieScreen3.position.set( -325, 70, -100 );
 				movieScreen3.scale.set(2,2,2);
-				scene.add( movieScreen3 ); */
+				scene.add( movieScreen3 ); 
 			
+				const sphereGeometry = new THREE.SphereGeometry( 100, 32, 32 );
+				const sphereMaterial = new THREE.MeshBasicMaterial( { roughness:0, wireframe:true } );
 
+				 sphereMesh = new THREE.Mesh( sphereGeometry, sphereMaterial );
+				scene.add(sphereMesh);
 
+				 sphere2Mesh = new THREE.Mesh( sphereGeometry, sphereMaterial );
+				scene.add(sphere2Mesh );
+
+				 sphere3Mesh = new THREE.Mesh( sphereGeometry, sphereMaterial );
+				scene.add(sphere3Mesh );
+
+				sphere3Mesh.position.set(-50,25,0);
+				sphere2Mesh.position.set(0,25,0);
+				sphereMesh.position.set(50,25,0);
+				sphere3Mesh.scale.set(0.2,0.2,0.2);
+				sphereMesh.scale.set(0.2,0.2,0.2);
+				sphere2Mesh.scale.set(0.2,0.2,0.2);
+				
+
+				
 		
 				 
 				controls = new OrbitControls( camera, renderer.domElement );
 				controls.maxPolarAngle = Math.PI * 0.495;
-				controls.target.set( 0, 10, 0 );
+			//	controls.target.set( 0, 10, 0 );
 				controls.minDistance = 40.0;
-				controls.maxDistance = 200.0;
+				controls.maxDistance = 500.0;
 				controls.update();
-
      	/* 		const geometry = new THREE.BoxGeometry( 30, 30, 100);
 				const material = new THREE.MeshStandardMaterial( { roughness: 0 } );
 
@@ -151,13 +177,16 @@ texture = new THREE.VideoTexture(video);
 			 */
 
 				const torusgeometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 );
-const torusmaterial = new THREE.MeshStandardMaterial( { roughness: 0, wireframe:true } );
-const torusKnot = new THREE.Mesh( torusgeometry, torusmaterial );
+			const torusmaterial = new THREE.MeshNormalMaterial( { wireframe:true } );
+ 			torusKnot = new THREE.Mesh( torusgeometry, torusmaterial );
 scene.add( torusKnot );
-				torusKnot.position.x=-40;
-				torusKnot.position.y=20;
+				torusKnot.position.x=0;
+				torusKnot.position.y=25;
+				torusKnot.position.z=0;
+				
 				
 
+			
 	/* 	const cubeGeometry = new THREE.BoxGeometry( 30, 30, 100 );
 		const cubeMaterial = new THREE.MeshStandardMaterial( { roughness: 0 } );
 
@@ -186,7 +215,23 @@ scene.add( torusKnot );
 				requestAnimationFrame( animate );
 				texture.needsUpdate = true;
 				texture2.needsUpdate = true;
+				texture3.needsUpdate = true;
+				controls.update();
+				//rotate animation for sphereMesh
+				
+				sphere2Mesh.rotation.y += 0.01;
+
+				torusKnot.rotation.x += 0.01;
+				torusKnot.rotation.y += 0.01;
+				torusKnot.rotation.z += 0.01;
+				
+
 				render();
+
+
+				
+			
+
 			
 			}
 
@@ -195,7 +240,7 @@ scene.add( torusKnot );
 		
 			
 				water.material.uniforms[ 'time' ].value += 1.0 / 60.0;
-
+				
 				renderer.render( scene, camera );
 
 			}
