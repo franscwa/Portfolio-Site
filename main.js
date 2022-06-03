@@ -31,7 +31,13 @@
 				//
 
 				sun = new THREE.Vector3();
+//TEST
+let light = new THREE.PointLight(0xffffff);
+    light.position.set(30,60,40);
 
+    light.castShadow = true;
+    scene.add(light);
+    
 				// Water
 
 				const waterGeometry = new THREE.PlaneGeometry( 10000, 10000 );
