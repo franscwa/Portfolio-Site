@@ -7,7 +7,7 @@
 
 		
 			let camera, scene, renderer;
-			let controls, water, sun,mesh, sphere2Mesh, sphereMesh, sphere3Mesh, torusKnot;
+			let controls, water, sun,mesh, sphere2Mesh, sphereMesh, sphere3Mesh, torusKnot, linkedCube;
 			let video,texture,video2,texture2,texture3,video3;
 
 			init();
@@ -99,6 +99,12 @@ texture = new THREE.VideoTexture(video);
 				}
 
 				updateSun();
+
+				const linkedTexture = new THREE.TextureLoader().load('linkedin-blue-s.png');
+			 linkedCube = new THREE.Mesh( new THREE.BoxGeometry(15,15,15), new THREE.MeshStandardMaterial({map: linkedTexture}));
+
+  scene.add(linkedCube);
+  linkedCube.position.set(0,20,50);
 
 
 				 video = document.getElementById('video');
@@ -226,7 +232,9 @@ texture = new THREE.VideoTexture(video);
 				torusKnot.rotation.x += 0.01;
 				torusKnot.rotation.y += 0.01;
 				torusKnot.rotation.z += 0.01;
-				
+
+				linkedCube.rotation.x += 0.01;
+				linkedCube.rotation.y += 0.01;
 
 				render();
 
