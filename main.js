@@ -7,7 +7,7 @@
 			import { Sky } from 'three/examples/jsm/objects/Sky.js';
 
 		
-			let camera, scene, renderer,mmi, mmi2;
+			let camera, scene, renderer,mmi;
 			let controls, water, sun,mesh, sphere2Mesh, sphereMesh, sphere3Mesh, torusKnot, linkedCube, gitCube;
 			let video,texture,video2,texture2,texture3,video3;
 
@@ -16,7 +16,7 @@
 			animate();
 
 			function init() {
-
+				//create scene
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
@@ -24,19 +24,19 @@
 				document.body.appendChild( renderer.domElement );
 
 				scene = new THREE.Scene();
-
+				//create camera
 				camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 20000 );
 				
-
-
+				// camera controls here
 				//
 
+				camera.position.setFromSphericalCoords( -175, -30, 10 );
+
+				//
+				//
+				
 				sun = new THREE.Vector3();
-//TEST
-/* video = document.getElementById('video');
-video.play();
-texture = new THREE.VideoTexture(video);
- */
+				
 				// Water
 
 				const waterGeometry = new THREE.PlaneGeometry( 10000, 10000 );
@@ -99,6 +99,7 @@ texture = new THREE.VideoTexture(video);
 
 				updateSun();
 
+				//2D Screen instantiation
 				 video = document.getElementById('video');
 				 video2 = document.getElementById('video2');
 				 video3 = document.getElementById('video3');
@@ -130,7 +131,8 @@ texture = new THREE.VideoTexture(video);
 				movieScreen2.scale.set(2,2,2);
 				scene.add( movieScreen2 );
 			
-				camera.position.z = 150;
+				
+
 				let movieScreen3 = new THREE.Mesh( movieGeometry, movieMaterial3 );
 				movieScreen3.position.set( -180, 70, -150 );
 				movieScreen3.scale.set(2,2,2);
@@ -206,7 +208,7 @@ texture = new THREE.VideoTexture(video);
 			gitCube.position.set(-40,20,50);
 
 			gitCube.name = "gitcube"
-
+			
 	
 			mmi.addHandler('gitcube','click', function(mesh){
 				window.location = "https://www.github.com/franscwa";
