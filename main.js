@@ -1,13 +1,14 @@
 
 			import * as THREE from 'three';
+			import MouseMeshInteraction from '@danielblagy/three-mmi';
 
 			import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 			import { Water } from 'three/examples/jsm/objects/Water.js';
 			import { Sky } from 'three/examples/jsm/objects/Sky.js';
 
 		
-			let camera, scene, renderer;
-			let controls, water, sun,mesh, sphere2Mesh, sphereMesh, sphere3Mesh, torusKnot, linkedCube;
+			let camera, scene, renderer,mmi, mmi2;
+			let controls, water, sun,mesh, sphere2Mesh, sphereMesh, sphere3Mesh, torusKnot, linkedCube, gitCube;
 			let video,texture,video2,texture2,texture3,video3;
 
 			init();
@@ -15,8 +16,6 @@
 			animate();
 
 			function init() {
-
-
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -99,13 +98,6 @@ texture = new THREE.VideoTexture(video);
 				}
 
 				updateSun();
-
-				const linkedTexture = new THREE.TextureLoader().load('linkedin-blue-s.png');
-			 linkedCube = new THREE.Mesh( new THREE.BoxGeometry(15,15,15), new THREE.MeshStandardMaterial({map: linkedTexture}));
-
-  scene.add(linkedCube);
-  linkedCube.position.set(0,20,50);
-
 
 				 video = document.getElementById('video');
 				 video2 = document.getElementById('video2');
@@ -193,6 +185,33 @@ texture = new THREE.VideoTexture(video);
 				
 				
 
+				const linkedTexture = new THREE.TextureLoader().load('linkedin-blue-s.png');
+			 linkedCube = new THREE.Mesh( new THREE.BoxGeometry(15,15,15), new THREE.MeshStandardMaterial({map: linkedTexture}));
+
+  scene.add(linkedCube);
+  linkedCube.position.set(0,20,50);
+			linkedCube.name = "linked";
+
+			mmi = new MouseMeshInteraction(scene, camera);
+
+			mmi.addHandler('linked','click', function(mesh){
+				window.location = "https://www.linkedin.com/in/franciscdgo";
+			})
+
+			
+
+			const gitTexture = new THREE.TextureLoader().load('github-bg.png');
+			 gitCube = new THREE.Mesh( new THREE.BoxGeometry(15,15,15), new THREE.MeshStandardMaterial({map: gitTexture}));
+			scene.add(gitCube);
+			gitCube.position.set(-40,20,50);
+
+			gitCube.name = "gitcube"
+
+	
+			mmi.addHandler('gitcube','click', function(mesh){
+				window.location = "https://www.github.com/franscwa";
+
+			}
 			
 	/* 	const cubeGeometry = new THREE.BoxGeometry( 30, 30, 100 );
 		const cubeMaterial = new THREE.MeshStandardMaterial( { roughness: 0 } );
@@ -205,7 +224,7 @@ texture = new THREE.VideoTexture(video);
 				cubemesh.position.x = 30;
 				cubemesh.position.y = 30; */
 	
-			}
+			)}
 			window.addEventListener( 'resize', onWindowResize );
 
 			function onWindowResize() {
@@ -235,6 +254,10 @@ texture = new THREE.VideoTexture(video);
 
 				linkedCube.rotation.x += 0.01;
 				linkedCube.rotation.y += 0.01;
+
+				gitCube.rotation.x += 0.01;
+				gitCube.rotation.y += 0.01;
+				mmi.update();
 
 				render();
 
