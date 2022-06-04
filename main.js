@@ -1,6 +1,6 @@
 
 			import * as THREE from 'three';
-			import MouseMeshInteraction from '@danielblagy/three-mmi';
+			//import MouseMeshInteraction from '/three-mmi.js';
 
 			import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 			import { Water } from 'three/examples/jsm/objects/Water.js';
@@ -194,14 +194,14 @@
   linkedCube.position.set(0,20,50);
 			linkedCube.name = "linked";
 
-			mmi = new MouseMeshInteraction(scene, camera);
+		/* 	mmi = new MouseMeshInteraction(scene, camera);
 
 			mmi.addHandler('linked','click', function(mesh){
 				window.location = "https://www.linkedin.com/in/franciscdgo";
 			})
 
 			
-
+ */
 			const gitTexture = new THREE.TextureLoader().load('github-bg.png');
 			 gitCube = new THREE.Mesh( new THREE.BoxGeometry(15,15,15), new THREE.MeshStandardMaterial({map: gitTexture}));
 			scene.add(gitCube);
@@ -209,12 +209,12 @@
 
 			gitCube.name = "gitcube"
 			
-	
+	/* 
 			mmi.addHandler('gitcube','click', function(mesh){
 				window.location = "https://www.github.com/franscwa";
 
 			}
-			
+			 */
 	/* 	const cubeGeometry = new THREE.BoxGeometry( 30, 30, 100 );
 		const cubeMaterial = new THREE.MeshStandardMaterial( { roughness: 0 } );
 
@@ -226,7 +226,7 @@
 				cubemesh.position.x = 30;
 				cubemesh.position.y = 30; */
 	
-			)}
+		}
 			window.addEventListener( 'resize', onWindowResize );
 
 			function onWindowResize() {
@@ -259,7 +259,7 @@
 
 				gitCube.rotation.x += 0.01;
 				gitCube.rotation.y += 0.01;
-				mmi.update();
+				//mmi.update();
 
 				render();
 
