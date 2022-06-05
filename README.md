@@ -1,6 +1,6 @@
 # www.franciscodevs.com
 
-run:
+clone & run:
 npm install
 
 to start test server:
