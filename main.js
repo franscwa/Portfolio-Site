@@ -1,16 +1,20 @@
 
 			import * as THREE from 'three';
-			import MouseMeshInteraction from './three-mmi.js';
+			import MouseMeshInteraction from '/three-mmi.js';
 
 			import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 			import { Water } from 'three/examples/jsm/objects/Water.js';
 			import { Sky } from 'three/examples/jsm/objects/Sky.js';
-
+			import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+			import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+			import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+			import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 		
 			let camera, scene, renderer,mmi;
 			let controls, water, sun,mesh, sphere2Mesh, sphereMesh, sphere3Mesh, torusKnot, linkedCube, gitCube;
 			let video,texture,video2,texture2,texture3,video3;
 
+			
 			init();
 
 			animate();
@@ -25,7 +29,7 @@
 
 				scene = new THREE.Scene();
 				//create camera
-				camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 20000 );
+				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.5, 20000 );
 				
 				// camera controls here
 				//
