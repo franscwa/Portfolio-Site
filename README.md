@@ -1,9 +1,17 @@
-#If Shortened Link is Broken, use this: http://139.144.31.254:3000/
-# Portfolio-Site
+# Portfolio Website with Three.JS, a WebGL interface for javascript
+[ in progress]
+### www.franciscodevs.com
 
-run:
+
+
+
+
+
+#### Instructions:
+clone & run:
 npm install
 
 to start test server:
 npm run dev
+
 
