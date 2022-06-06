@@ -1,4 +1,4 @@
-# Portfolio Website, built with Three.JS, a WebGL interface for javascript
+# Portfolio Website with Three.JS, a WebGL interface for javascript
 
 www.franciscodevs.com
 
