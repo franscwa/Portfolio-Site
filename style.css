@@ -15,11 +15,25 @@ main{
   left: 5%;
 }
 
-.button1{
-  top:15%;
-  left:15;
-  width: 150px;
-  height: 30px;
+button{
+ 
+  font-family: raleway;
+    padding: 10px 40px;
+    cursor: pointer;
+    text-transform: uppercase;
+    word-spacing: 5px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    border: 3px solid #0a1d56;
+    color: #0a1d56;
+    font-weight: 900;
+    font-size: large;
+    margin: 20px 0px;
 
 
+}
+button:hover{
+  transform: scale(1.1);
+  transition: all 0.3s ease;
 }
