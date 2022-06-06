@@ -6,18 +6,21 @@ video{
   display:none;
 }
 
-main{
+main {
+
   position: absolute;
   background-color: transparent;
   color:whitesmoke;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   top: 5%;
   left: 5%;
+  display:inline;
+ 
 }
 
-button{
+button {
  
-  font-family: raleway;
+  font-family: Tahoma;
     padding: 10px 40px;
     cursor: pointer;
     text-transform: uppercase;
@@ -25,15 +28,22 @@ button{
     outline: none;
     transition: all 0.3s ease;
     background-color: transparent;
-    border: 3px solid #0a1d56;
-    color: #0a1d56;
+    border: 3px solid whitesmoke;
+    color: whitesmoke;
     font-weight: 900;
     font-size: large;
     margin: 20px 0px;
-
-
+    border-radius: 5px;
+    
+   
+   
 }
+
+
 button:hover{
   transform: scale(1.1);
   transition: all 0.3s ease;
 }
+
+
+

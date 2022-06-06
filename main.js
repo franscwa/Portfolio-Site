@@ -29,7 +29,7 @@ import { Curves } from 'three/examples/jsm/curves/CurveExtras.js';
 let camera, scene, renderer, mmi,binormal,normal;
 
 //objects 
-let controls, water, sun, sphere2Mesh, sphereMesh, sphere3Mesh, torusKnot, linkedCube, gitCube, orbitTrack, curve, tube;
+let controls, water, sun, sphere2Mesh, sphereMesh, sphere3Mesh, torusKnot, linkedCube, gitCube, orbitTrack, tube;
 
 //textures
 let video, texture, video2, texture2, texture3, video3;
@@ -39,7 +39,7 @@ let video, texture, video2, texture2, texture3, video3;
 init();
 RectAreaLightUniformsLib.init();
 animate();
-
+window.addEventListener('touchcancel', this.onUp);
 function init() {
     //create scene
     //add an html navbar
@@ -270,14 +270,14 @@ scene.add( rectLight )
 	
 	scene.add(orbitTrack);
 //////////
-	// call a granny knot curv
+	// call a curve
 
-	 curve = new THREE.EllipseCurve();
-  const geometry = new THREE.TubeBufferGeometry( curve, 100, 2, 8, true );
-  const material = new THREE.MeshBasicMaterial({ wireframe:true, color: 0xffffff, side: THREE.DoubleSide });
-  tube = new THREE.Mesh( geometry, material );
+  const curve = new THREE.EllipseCurve();
+  const geoline = new THREE.TubeBufferGeometry( curve, 100, 2, 8, true );
+  const curveterial = new THREE.MeshBasicMaterial({ wireframe:true, color: 0xffffff, side: THREE.DoubleSide });
+  tube = new THREE.Mesh( geoline, curveterial );
   scene.add(tube);
-  
+  tube.position.set(50,50,50);
   binormal = new THREE.Vector3();
   normal = new THREE.Vector3();
   
@@ -307,7 +307,7 @@ scene.add( rectLight )
     })
 
 
-
+	
     const gitTexture = new THREE.TextureLoader().load('github-bg.png');
     gitCube = new THREE.Mesh(new THREE.BoxGeometry(15, 15, 15), new THREE.MeshStandardMaterial({
         map: gitTexture
@@ -343,7 +343,7 @@ function onWindowResize() {
 
 }
 
-
+camera.position.x /= 4;
 
 /* function updateCamera(){
 
