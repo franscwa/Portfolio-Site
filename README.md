@@ -1,9 +1,8 @@
 # Portfolio Website with Three.JS, a WebGL interface for javascript
-[ in progress]
-### www.franciscodevs.com
+## franciscodevs.com
+Docker Build Instructions:
 
-
-
+[In Progress] 
 
 
 
