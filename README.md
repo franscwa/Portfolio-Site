@@ -1,14 +1,16 @@
 # Portfolio Website with Three.JS, a WebGL interface for javascript
 ## franciscodevs.com
 
+## Description
+
 
 [In Progress] 
 
 
 
-#### Instructions:
+## Instructions:
 
-## node
+#### Node Setup
 clone & run:
 npm install
 
@@ -17,8 +19,8 @@ npm run dev
 
 
 
-## docker
-[ to do ]
+#### Docker Setup 
+[In Progress]
 
 
 
