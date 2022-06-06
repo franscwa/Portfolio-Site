@@ -2,21 +2,13 @@
 
 www.franciscodevs.com
 
+
 ## [In Progress]
 
 
 ## Instructions:
 
-#### Node Setup
-clone & run:
-npm install
-
-to start test server:
-npm run dev
-
-
-
-#### Docker Setup 
+#### Docker Instructions 
 [In Progress]
 
 
