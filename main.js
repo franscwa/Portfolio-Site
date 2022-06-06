@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import MouseMeshInteraction from '/three-mmi.js';
-
+import gsap from 'gsap';
 import {
     OrbitControls
 } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -11,9 +11,6 @@ import {
     Sky
 } from 'three/examples/jsm/objects/Sky.js';
 import {
-    GLTFLoader
-} from 'three/examples/jsm/loaders/GLTFLoader.js';
-import {
     EffectComposer
 } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import {
@@ -23,21 +20,21 @@ import {
     UnrealBloomPass
 } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
-import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js';
 import { Curves } from 'three/examples/jsm/curves/CurveExtras.js';
+import { FrontSide } from 'three';
 
-let camera, scene, renderer, mmi,binormal,normal;
+let camera, scene, renderer, mmi, binormal, normal;;
 
 //objects 
 let controls, water, sun, sphere2Mesh, sphereMesh, sphere3Mesh, torusKnot, linkedCube, gitCube, orbitTrack, tube;
-
+let javaMesh, scriptMesh, linuxMesh, sqlMesh, pythonMesh, reactMesh, springMesh;
+let javaTexture, scriptTexture, linuxTexture, sqlTexture, pythonTexture, reactTexture, springTexture;
 //textures
 let video, texture, video2, texture2, texture3, video3;
 
 
 
 init();
-RectAreaLightUniformsLib.init();
 animate();
 
 function init() {
@@ -54,13 +51,15 @@ function init() {
     //create camera
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.5, 10000);
 
-    // camera controls here
+    // camera controls 
     //
+	//
+	camera.position.x = 0;
+	camera.position.y = 0;
 
-    camera.position.set(-220, -36, 16);
-
     //
     //
+	//
     function updateCamera1() {
         camera.position.setFromSphericalCoords(-0, -36, 5);
 
@@ -120,7 +119,7 @@ function init() {
         const phi = THREE.MathUtils.degToRad(90 - parameters.elevation);
         const theta = THREE.MathUtils.degToRad(parameters.azimuth);
 
-        sun.setFromSphericalCoords(1, phi, theta);
+        sun.setFromSphericalCoords(0.1, phi, theta);
 
         sky.material.uniforms['sunPosition'].value.copy(sun);
         water.material.uniforms['sunDirection'].value.copy(sun).normalize();
@@ -130,14 +129,6 @@ function init() {
     }
 
     updateSun();
-
-	//RECT LIGHTS
-
-	///////////
-const rectLight = new THREE.RectAreaLight( 0xFFFFFF, 100,  15, 50 );
-rectLight.position.set( 0, 15, 0 );
-rectLight.lookAt( 0, 0, 0 );
-scene.add( rectLight )
 
 
     //2D SCREENS ////
@@ -176,7 +167,7 @@ scene.add( rectLight )
     });
 
 	//scaled screen
-    let movieGeometry = new THREE.PlaneGeometry(192 / 2, 108 / 2);
+    let movieGeometry = new THREE.BoxGeometry(192 / 2, 108 / 2, 3.5);
 
 
 	//left screen
@@ -230,7 +221,81 @@ scene.add( rectLight )
 
     
 	
+//ICONS///
+javaTexture = new THREE.TextureLoader().load('assets/java.png');
+javaMesh = new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 1.5, 30), new THREE.MeshBasicMaterial({
+	map: javaTexture
+})); 
+scene.add(javaMesh);
+javaMesh.position.set(20, 60, 0);
+javaMesh.scale.set(1.5,1.5,1.5);
+javaMesh.rotateY(Math.PI / 2);
+javaMesh.rotateZ(Math.PI / 2);
 
+springTexture = new THREE.TextureLoader().load('assets/spring.png');
+springMesh = new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 1.5,6), new THREE.MeshBasicMaterial({
+	map: springTexture
+})); 
+scene.add(springMesh);
+springMesh.position.set(60, 60, 0);
+springMesh.scale.set(1.5,1.5,1.5);
+springMesh.rotateY(Math.PI/2);
+springMesh.rotateZ(Math.PI/2);
+
+linuxTexture = new THREE.TextureLoader().load('assets/linux.png');
+linuxMesh = new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 1.5,30), new THREE.MeshBasicMaterial({
+	map: linuxTexture
+})); 
+scene.add(linuxMesh);
+linuxMesh.position.set(100, 60, 0);
+linuxMesh.scale.set(1.5,1.5,1.5);
+linuxMesh.rotateY(Math.PI/2);
+linuxMesh.rotateZ(Math.PI/2);
+
+reactTexture = new THREE.TextureLoader().load('assets/react.png');
+reactMesh = new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 1.5,8), new THREE.MeshBasicMaterial({
+	map: reactTexture
+})); 
+scene.add(reactMesh);
+reactMesh.position.set(140, 60, 0);
+reactMesh.scale.set(1.5,1.5,1.5);
+reactMesh.rotateY(Math.PI/2);
+reactMesh.rotateZ(Math.PI/2);
+
+pythonTexture = new THREE.TextureLoader().load('assets/python.png');
+pythonMesh = new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 1.5,30), new THREE.MeshBasicMaterial({
+	map: pythonTexture
+})); 
+scene.add(pythonMesh);
+pythonMesh.position.set(180, 60, 0);
+pythonMesh.scale.set(1.5,1.5,1.5);
+pythonMesh.rotateY(Math.PI/2);
+pythonMesh.rotateZ(Math.PI/2);
+
+scriptTexture = new THREE.TextureLoader().load('assets/script.png');
+scriptMesh = new THREE.Mesh(new THREE.CylinderGeometry(10,10, 1.5,30), new THREE.MeshBasicMaterial({
+	map: scriptTexture
+
+})); 
+scene.add(scriptMesh);
+scriptMesh.position.set(220, 60, 0);
+scriptMesh.rotateY(Math.PI/2);
+scriptMesh.rotateZ(Math.PI/2);
+scriptMesh.scale.set(1.5,1.5,1.5);
+sqlTexture = new THREE.TextureLoader().load('assets/sql.png');
+sqlMesh = new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 1.5,30), new THREE.MeshBasicMaterial({
+	map: sqlTexture
+})); 
+scene.add(sqlMesh);
+sqlMesh.position.set(260, 60, 0);
+sqlMesh.scale.set(1.5,1.5,1.5);
+sqlMesh.rotateY(Math.PI/2);
+sqlMesh.rotateZ(Math.PI/2);
+
+
+
+
+//////////
 
 
 //ORBIT CONTROLS
@@ -238,7 +303,7 @@ scene.add( rectLight )
 
 /////////////////////
     controls = new OrbitControls(camera, renderer.domElement);
-    controls.maxPolarAngle = Math.PI * 0.495;
+  //  controls.maxPolarAngle = Math.PI * 0.495;
     	controls.target.set( 0, 10, 0 );
     controls.minDistance = 40.0;
     controls.maxDistance = 500.0;
@@ -274,9 +339,10 @@ scene.add( rectLight )
 
   const curve = new THREE.EllipseCurve();
   const geoline = new THREE.TubeBufferGeometry( curve, 100, 2, 8, true );
-  const curveterial = new THREE.MeshBasicMaterial({ wireframe:true, color: 0xffffff, side: THREE.DoubleSide });
+  const curveterial = new THREE.MeshBasicMaterial({ wireframe:false, color: 0xffffff, side: THREE.DoubleSide });
   tube = new THREE.Mesh( geoline, curveterial );
   scene.add(tube);
+  tube.scale.set(20,20,20);
   tube.position.set(50,50,50);
   binormal = new THREE.Vector3();
   normal = new THREE.Vector3();
@@ -297,7 +363,7 @@ scene.add( rectLight )
 
 
     scene.add(linkedCube);
-    linkedCube.position.set(0, 20, 50);
+    linkedCube.position.set(20, 20, 50);
     linkedCube.name = "linked";
 
     mmi = new MouseMeshInteraction(scene, camera);
@@ -308,12 +374,12 @@ scene.add( rectLight )
 
 
 	
-    const gitTexture = new THREE.TextureLoader().load('github-bg.png');
+    const gitTexture = new THREE.TextureLoader().load('/assets/github-bg.png');
     gitCube = new THREE.Mesh(new THREE.BoxGeometry(15, 15, 15), new THREE.MeshStandardMaterial({
         map: gitTexture
     }));
     scene.add(gitCube);
-    gitCube.position.set(-40, 20, 50);
+    gitCube.position.set(-20, 20, 50);
 
     gitCube.name = "gitcube"
 

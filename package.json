@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@danielblagy/three-mmi": "^1.0.0",
+    "gsap": "^3.10.4",
     "three": "^0.134.0",
     "threex.domevents": "^1.0.1"
   }

@@ -9,22 +9,24 @@ video{
 main {
 
   position: absolute;
-  background-color: transparent;
   color:whitesmoke;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   top: 5%;
   left: 5%;
   display:inline;
- 
+  font-size: medium;
+
 }
 
 #container{
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 2fr 2fr 2fr 2fr;
 }
 
-.border{
-  border: 3px whitesmoke;
+.borderDiv{
+  padding:10px;
+  padding-right:5px;
+  border: 3px whitesmoke solid;
 }
 
 
@@ -40,7 +42,7 @@ button {
     background-color: transparent;
     border: 3px solid whitesmoke;
     color: whitesmoke;
-    font-weight: 900;
+    font-weight: 800;
     font-size: large;
     margin: 20px 0px;
     border-radius:2px;
@@ -49,10 +51,42 @@ button {
 
 
 button:hover{
-  transform: scale(1.1);
+  transform: scale(1.05);
   transition: all 0.3s ease;
+
+}
+
+button:active{
+  transform: scale(1.1);
   background-color: black;
 }
 
+.button2{
+  font-family: Tahoma;
+    padding: 10px 40px;
+    cursor: pointer;
+    text-transform: uppercase;
+    word-spacing: 5px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    border: 3px solid rgba(255, 174, 11, 0.817);
+    color: rgb(255, 174, 11);
+    font-weight: 800;
+    font-size: large;
+    margin: 20px 0px;
+    border-radius:2px;
+}
+
+.button2:hover{
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+ 
+}
+
+.button2:active{
+  transform: scale(1.1);
+  background-color: black;
+}
 
 
