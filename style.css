@@ -5,3 +5,14 @@
 video{
   display:none;
 }
+
+main{
+  position: absolute;
+  background-color: transparent;
+  color:whitesmoke;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.button1{
+  border-radius: 2px;
+}

@@ -9,6 +9,7 @@
 			import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 			import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 			import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { Vector3 } from 'three';
 		
 			let camera, scene, renderer,mmi;
 			let controls, water, sun,mesh, sphere2Mesh, sphereMesh, sphere3Mesh, torusKnot, linkedCube, gitCube;
@@ -21,6 +22,10 @@
 
 			function init() {
 				//create scene
+				//add an html navbar
+				let navbar = document.createElement('nav');
+				navbar.className = 'navbar navbar-expand-lg navbar-light bg-light';
+				document.body.appendChild(navbar);
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
@@ -34,11 +39,15 @@
 				// camera controls here
 				//
 
-				camera.position.setFromSphericalCoords( -175, -30, 10 );
+				camera.position.setFromSphericalCoords( -220, -36, 16 );
 
 				//
 				//
-				
+				function updateCamera1(){
+					camera.position.setFromSphericalCoords( -0, -36, 5 );
+
+				}
+
 				sun = new THREE.Vector3();
 				
 				// Water
@@ -129,14 +138,12 @@
 				movieScreen.position.set( 180, 70, -150 );
 				movieScreen.scale.set(2,2,2);
 				scene.add( movieScreen );
-
+				//middle screen
 				let movieScreen2 = new THREE.Mesh( movieGeometry, movieMaterial2 );
 				movieScreen2.position.set( 0, 70, -100 );
 				movieScreen2.scale.set(2,2,2);
 				scene.add( movieScreen2 );
 			
-				
-
 				let movieScreen3 = new THREE.Mesh( movieGeometry, movieMaterial3 );
 				movieScreen3.position.set( -180, 70, -150 );
 				movieScreen3.scale.set(2,2,2);
@@ -161,10 +168,8 @@
 				sphereMesh.scale.set(0.2,0.2,0.2);
 				sphere2Mesh.scale.set(0.2,0.2,0.2);
 				
-
 				
-		
-				 
+			
 				controls = new OrbitControls( camera, renderer.domElement );
 				controls.maxPolarAngle = Math.PI * 0.495;
 			//	controls.target.set( 0, 10, 0 );
@@ -194,8 +199,8 @@
 				const linkedTexture = new THREE.TextureLoader().load('linkedin-blue-s.png');
 			 linkedCube = new THREE.Mesh( new THREE.BoxGeometry(15,15,15), new THREE.MeshStandardMaterial({map: linkedTexture}));
 
-  scene.add(linkedCube);
-  linkedCube.position.set(0,20,50);
+  			scene.add(linkedCube);
+  			linkedCube.position.set(0,20,50);
 			linkedCube.name = "linked";
 
 			mmi = new MouseMeshInteraction(scene, camera);
@@ -213,12 +218,16 @@
 
 			gitCube.name = "gitcube"
 			
-	
+			
 			mmi.addHandler('gitcube','click', function(mesh){
-				window.location = "https://www.github.com/franscwa";
-
+				gitCube.material = new THREE.MeshStandardMaterial({map: linkedTexture});
+				//window.location = "https://www.github.com/franscwa";
 			}
 			)
+			movieScreen2.name = 'moviescreen'
+			
+			mmi.addHandler('moviescreen', 'dblclick', function(mesh){
+				console.log(camera.position);})
 	/* 	const cubeGeometry = new THREE.BoxGeometry( 30, 30, 100 );
 		const cubeMaterial = new THREE.MeshStandardMaterial( { roughness: 0 } );
 
@@ -261,11 +270,13 @@
 				linkedCube.rotation.x += 0.01;
 				linkedCube.rotation.y += 0.01;
 
+
 				gitCube.rotation.x += 0.01;
 				gitCube.rotation.y += 0.01;
 				mmi.update();
 
 				render();
+				
 
 
 				
@@ -284,14 +295,4 @@
 
 			}
 
-/* 			document.onkeydown = function(e) {
-				if (e.key === 'p'){
-					video.play();
-				}else if (e.key === 'space'){
-					video.pause();
-				}else if(e.key === 's'){
-					video.pause();
-					video.currentTime = 0;
-				} else if(e.key === 'r'){
-					video.currentTime = 0;
-				}}; */
+		
