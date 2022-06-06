@@ -39,7 +39,7 @@ let video, texture, video2, texture2, texture3, video3;
 init();
 RectAreaLightUniformsLib.init();
 animate();
-window.addEventListener('touchcancel', this.onUp);
+
 function init() {
     //create scene
     //add an html navbar
