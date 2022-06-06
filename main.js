@@ -319,11 +319,13 @@ scene.add( rectLight )
 
 
     mmi.addHandler('gitcube', 'click', function(mesh) {
-        gitCube.material = new THREE.MeshStandardMaterial({
-            map: linkedTexture
-        });
-        //window.location = "https://www.github.com/franscwa";
+      window.location = "https://www.github.com/franscwa";
     })
+
+        //window.location = "https://www.github.com/franscwa";
+
+
+	
     movieScreen2.name = 'moviescreen'
 
     mmi.addHandler('moviescreen', 'dblclick', function(mesh) {
