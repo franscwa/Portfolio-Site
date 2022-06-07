@@ -21,9 +21,7 @@ import {
 } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
 import { Curves } from 'three/examples/jsm/curves/CurveExtras.js';
-import { FrontSide } from 'three';
-
-let camera, scene, renderer, mmi, binormal, normal;;
+let camera, scene, renderer, mmi, binormal, normal,clock;
 
 //objects 
 let controls, water, sun, sphere2Mesh, sphereMesh, sphere3Mesh, torusKnot, linkedCube, gitCube, orbitTrack, tube;
@@ -40,7 +38,7 @@ animate();
 function init() {
     //create scene
     //add an html navbar
-
+    clock = new THREE.Clock();
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -107,17 +105,25 @@ function init() {
     skyUniforms['mieCoefficient'].value = 0.005;
     skyUniforms['mieDirectionalG'].value = 0.8;
 
-    const parameters = {
-        elevation: 2,
-        azimuth: 180
+    let parameters = {
+        elevation: 1,
+        azimuth: 180,
     };
 
+  
+    var movesun = document.getElementById("b5");
+    movesun.onclick = function(onclick) {
+        parameters.azimuth = 220;
+    }
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
 
     function updateSun() {
 
-        const phi = THREE.MathUtils.degToRad(90 - parameters.elevation);
-        const theta = THREE.MathUtils.degToRad(parameters.azimuth);
+        let phi = THREE.MathUtils.degToRad(90 - parameters.elevation);
+        let theta = THREE.MathUtils.degToRad(parameters.azimuth);
+
+        //onclick update the sun position
+        
 
         sun.setFromSphericalCoords(0.1, phi, theta);
 
@@ -191,7 +197,6 @@ function init() {
 
 
 	
-
 	// CONTROL SPHERES 
 
 	//////////////////
@@ -303,8 +308,8 @@ sqlMesh.rotateZ(Math.PI/2);
 
 /////////////////////
     controls = new OrbitControls(camera, renderer.domElement);
-  //  controls.maxPolarAngle = Math.PI * 0.495;
-    	controls.target.set( 0, 10, 0 );
+    controls.maxPolarAngle = (Math.PI * 0.495);
+    ////controls.target.set( 0, -10, 0 );
     controls.minDistance = 40.0;
     controls.maxDistance = 500.0;
     controls.update();
@@ -323,7 +328,8 @@ sqlMesh.rotateZ(Math.PI/2);
 	//CAMERA ANIMATIONS 
 
 
-
+    camera.position.x = 40;
+    camera.position.y = 30;
 
 	////////////////////
 
@@ -337,16 +343,22 @@ sqlMesh.rotateZ(Math.PI/2);
 //////////
 	// call a curve
 
-  const curve = new THREE.EllipseCurve();
-  const geoline = new THREE.TubeBufferGeometry( curve, 100, 2, 8, true );
+
+ /*  const geoline = new THREE.TubeBufferGeometry( curve, 100, 2, 8, true );
   const curveterial = new THREE.MeshBasicMaterial({ wireframe:false, color: 0xffffff, side: THREE.DoubleSide });
   tube = new THREE.Mesh( geoline, curveterial );
   scene.add(tube);
   tube.scale.set(20,20,20);
   tube.position.set(50,50,50);
   binormal = new THREE.Vector3();
-  normal = new THREE.Vector3();
+  normal = new THREE.Vector3(); */
   
+/*  const curve = new THREE.Curves.GrannyKnot();
+const tube = new THREE.TubeBufferGeometry( curve, 100, 2, 8, true );
+let coterail = new THREE.MeshBasicMaterial({ wireframe:false, color: 0xffffff});
+let newTube = new THREE.Mesh( tube, coterail );
+scene.add(newTube)
+ */
 
 
 	/////////////
@@ -356,7 +368,7 @@ sqlMesh.rotateZ(Math.PI/2);
 	///////////////
 
 
-    const linkedTexture = new THREE.TextureLoader().load('linkedin-blue-s.png');
+    const linkedTexture = new THREE.TextureLoader().load('assets/linkedin-blue-s.png');
     linkedCube = new THREE.Mesh(new THREE.BoxGeometry(15, 15, 15), new THREE.MeshStandardMaterial({
         map: linkedTexture
     }));
@@ -397,8 +409,7 @@ sqlMesh.rotateZ(Math.PI/2);
     mmi.addHandler('moviescreen', 'dblclick', function(mesh) {
         console.log(camera.position);
     })
-				camera.translateX(200);
-				camera.translateZ(-500);
+				
 }
 window.addEventListener('resize', onWindowResize);
 
@@ -411,7 +422,7 @@ function onWindowResize() {
 
 }
 
-camera.position.x /= 4;
+
 
 /* function updateCamera(){
 
