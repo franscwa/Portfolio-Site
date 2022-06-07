@@ -38,7 +38,6 @@ animate();
 function init() {
     //create scene
     //add an html navbar
-    clock = new THREE.Clock();
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -52,16 +51,11 @@ function init() {
     // camera controls 
     //
 	//
-	camera.position.x = 0;
-	camera.position.y = 0;
-
+	camera.position.set(268,159,294); 
     //
     //
 	//
-    function updateCamera1() {
-        camera.position.setFromSphericalCoords(-0, -36, 5);
-
-    }
+   
 
     sun = new THREE.Vector3();
 
@@ -106,14 +100,14 @@ function init() {
     skyUniforms['mieDirectionalG'].value = 0.8;
 
     let parameters = {
-        elevation: 1,
+        elevation: 0.8,
         azimuth: 180,
     };
 
   
     var movesun = document.getElementById("b5");
     movesun.onclick = function(onclick) {
-        parameters.azimuth = 220;
+        parameters.elevation = 2;
     }
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
 
@@ -136,7 +130,7 @@ function init() {
 
     updateSun();
 
-
+    
     //2D SCREENS ////
 
 
@@ -328,9 +322,6 @@ sqlMesh.rotateZ(Math.PI/2);
 	//CAMERA ANIMATIONS 
 
 
-    camera.position.x = 40;
-    camera.position.y = 30;
-
 	////////////////////
 
 	orbitTrack = new THREE.Mesh( new THREE.TorusGeometry( 40, 3, 16, 20 ), new THREE.MeshStandardMaterial( { wireframe:true}) );
@@ -464,8 +455,6 @@ function animate() {
     mmi.update();
 
     render();
-
-
 
 
 }
