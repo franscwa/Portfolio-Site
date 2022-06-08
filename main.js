@@ -1,26 +1,10 @@
 import * as THREE from 'three';
 import MouseMeshInteraction from '/three-mmi.js';
 import gsap from 'gsap';
-import {
-    OrbitControls
-} from 'three/examples/jsm/controls/OrbitControls.js';
-import {
-    Water
-} from 'three/examples/jsm/objects/Water.js';
-import {
-    Sky
-} from 'three/examples/jsm/objects/Sky.js';
-import {
-    EffectComposer
-} from 'three/examples/jsm/postprocessing/EffectComposer.js';
-import {
-    RenderPass
-} from 'three/examples/jsm/postprocessing/RenderPass.js';
-import {
-    UnrealBloomPass
-} from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { Water } from 'three/examples/jsm/objects/Water.js';
+import { Sky } from 'three/examples/jsm/objects/Sky.js';
 
-import { Curves } from 'three/examples/jsm/curves/CurveExtras.js';
 let camera, scene, renderer, mmi, binormal, normal,clock;
 
 //objects 
@@ -36,30 +20,24 @@ init();
 animate();
 
 function init() {
-    //create scene
-    //add an html navbar
+    
+    //Render and Scene Dependencies
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     document.body.appendChild(renderer.domElement);
-
     scene = new THREE.Scene();
-    //create camera
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.5, 10000);
 
-    // camera controls 
-    //
-	//
+    //Original Camera Position
 	camera.position.set(268,159,294); 
-    //
-    //
-	//
+    
    
 
     sun = new THREE.Vector3();
 
-    // Water
+    // Oceam Plane
 
     const waterGeometry = new THREE.PlaneGeometry(10000, 10000);
 
@@ -83,11 +61,11 @@ function init() {
     water.rotation.x = -Math.PI / 2;
 
     scene.add(water);
+    camera.lookAt(0,0,0);
+  
 
-    // Skybox
+    // Sky
 
-
-	///
     const sky = new Sky();
     sky.scale.setScalar(10000);
     scene.add(sky);
@@ -104,11 +82,7 @@ function init() {
         azimuth: 180,
     };
 
-  
-    var movesun = document.getElementById("b5");
-    movesun.onclick = function(onclick) {
-        parameters.elevation = 2;
-    }
+ 
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
 
     function updateSun() {
@@ -131,11 +105,7 @@ function init() {
     updateSun();
 
     
-    //2D SCREENS ////
-
-
-
-	//////////
+   
     video = document.getElementById('video');
     video2 = document.getElementById('video2');
     video3 = document.getElementById('video3');
@@ -149,6 +119,11 @@ function init() {
     texture2 = new THREE.VideoTexture(video2);
 
     texture3 = new THREE.VideoTexture(video3);
+    let textures = []
+    for( texture in textures){
+
+    }
+
 
     let movieMaterial = new THREE.MeshBasicMaterial({
         map: texture,
@@ -191,7 +166,7 @@ function init() {
 
 
 	
-	// CONTROL SPHERES 
+	// OBJECT COLLECTION
 
 	//////////////////
     let sphereGeometry = new THREE.SphereGeometry(100, 32, 32);
@@ -217,7 +192,15 @@ function init() {
     sphereMesh.scale.set(0.2, 0.2, 0.2);
     sphere2Mesh.scale.set(0.2, 0.2, 0.2);
 
-
+    javaTexture = new THREE.TextureLoader().load('assets/java.png');
+    javaMesh = new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 1.5, 30), new THREE.MeshBasicMaterial({
+        map: javaTexture
+    })); 
+    scene.add(javaMesh);
+    javaMesh.position.set(20, 60, 0);
+    javaMesh.scale.set(1.5,1.5,1.5);
+    javaMesh.rotateY(Math.PI / 2);
+    javaMesh.rotateZ(Math.PI / 2);
     
 	
 //ICONS///
@@ -236,8 +219,8 @@ springMesh = new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 1.5,6), new THREE
 	map: springTexture
 })); 
 scene.add(springMesh);
-springMesh.position.set(60, 60, 0);
-springMesh.scale.set(1.5,1.5,1.5);
+springMesh.position.set(62, 60, 0);
+springMesh.scale.set(1.3,1.3,1.3);
 springMesh.rotateY(Math.PI/2);
 springMesh.rotateZ(Math.PI/2);
 
@@ -281,18 +264,14 @@ scriptMesh.position.set(220, 60, 0);
 scriptMesh.rotateY(Math.PI/2);
 scriptMesh.rotateZ(Math.PI/2);
 scriptMesh.scale.set(1.5,1.5,1.5);
+
 sqlTexture = new THREE.TextureLoader().load('assets/sql.png');
 sqlMesh = new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 1.5,30), new THREE.MeshBasicMaterial({
 	map: sqlTexture
 })); 
 scene.add(sqlMesh);
-sqlMesh.position.set(260, 60, 0);
-sqlMesh.scale.set(1.5,1.5,1.5);
-sqlMesh.rotateY(Math.PI/2);
-sqlMesh.rotateZ(Math.PI/2);
-
-
-
+sqlMesh.position.set(20,200,0);
+sqlMesh.scale.set(0.5,0.5,0.5);
 
 //////////
 
@@ -312,6 +291,7 @@ sqlMesh.rotateZ(Math.PI/2);
     const torusmaterial = new THREE.MeshNormalMaterial({
         wireframe: true
     });
+
     torusKnot = new THREE.Mesh(torusgeometry, torusmaterial);
     scene.add(torusKnot);
     torusKnot.position.x = 0;
@@ -324,13 +304,6 @@ sqlMesh.rotateZ(Math.PI/2);
 
 	////////////////////
 
-	orbitTrack = new THREE.Mesh( new THREE.TorusGeometry( 40, 3, 16, 20 ), new THREE.MeshStandardMaterial( { wireframe:true}) );
-	orbitTrack.position.set( 30, 250, -150 );
-	orbitTrack.rotateZ( Math.PI / 2.5 );
-	orbitTrack.rotateY( Math.PI / 2 );
-	orbitTrack.scale.set(15, 15, 15 );
-	
-	scene.add(orbitTrack);
 //////////
 	// call a curve
 
@@ -395,13 +368,14 @@ scene.add(newTube)
 
 
 	
-    movieScreen2.name = 'moviescreen'
+    javaMesh.name = 'moviescreen'
 
     mmi.addHandler('moviescreen', 'dblclick', function(mesh) {
-        console.log(camera.position);
+        console.log(javaMesh.position);
     })
 				
 }
+
 window.addEventListener('resize', onWindowResize);
 
 function onWindowResize() {
@@ -412,6 +386,8 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 
 }
+
+let meshList = [];
 
 
 
@@ -428,15 +404,16 @@ const time = Date.now() * 0.001;
 	camera.position.copy(pos);
 	camera.lookAt(pos2);
   } */
-function animate() {
+
+  function animate() {
 
     requestAnimationFrame(animate);
     texture.needsUpdate = true;
     texture2.needsUpdate = true;
     texture3.needsUpdate = true;
-    controls.update();
+  
     //rotate animation for sphereMesh
-    sphereMesh.rotation.z -= 0.01;
+     sphereMesh.rotation.z -= 0.01;
     sphere3Mesh.rotation.z += 0.01;
     sphere2Mesh.rotation.y += 0.01;
 
@@ -448,17 +425,29 @@ function animate() {
 
     linkedCube.rotation.x += 0.01;
     linkedCube.rotation.y += 0.01;
+ 
+   camera.position.z += 16 *Math.PI;
+//    sql mesh circlular sine wave position
+   
+    sqlMesh.position.x = 60 + Math.cos(Date.now()/1000) * 15;
+    sqlMesh.position.y = 60 + Math.sin(Date.now()/1000) * 15;
+    sqlMesh.position.z = Math.sin(Date.now()/1000) * 15;
+    sqlMesh.rotation.y += 0.02;
+    sqlMesh.rotation.z += 0.02;
+// sql mesh sine orbit x, y and z positions
 
 
     gitCube.rotation.x += 0.01;
     gitCube.rotation.y += 0.01;
     mmi.update();
+    
 
+    
+    controls.update();
     render();
 
 
 }
-
 
 function render() {
 
